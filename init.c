@@ -1,4 +1,4 @@
-#include "../include/philo.h"
+#include "philo.h"
 
 int	var_init(t_info *data, char *argv[])
 {

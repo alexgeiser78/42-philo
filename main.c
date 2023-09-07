@@ -1,6 +1,6 @@
-# include "../include/philo.h"
+# include "philo.h"
 
-go(t_info data, char *argv)
+void	go(t_info data)
 {
 int i;
 
@@ -49,7 +49,7 @@ int	main(int argc, char *argv[])
 	if (argc != 5)
 		return (0);
 	var_init(&data, argv);
-	go(data, argv);
+	go(data);
 
 	return 0;
 }
