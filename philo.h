@@ -24,5 +24,6 @@ void	go(t_info data);
 void	*philo_life(void *phi);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
+int		is_dead(t_philo *philo, int nb);
 
 #endif
