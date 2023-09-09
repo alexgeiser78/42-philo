@@ -7,10 +7,10 @@ ligne de commande pour lancer le prog: ./philo_one
 										(number_of_time_each_philosophers_must_eat)
 
 
-   main
-    |->var init
-	    |->pthread_mutex_init
-		          |->philo_life
-				         |->is_dead
-	|->go
-	    |->pthread_create
+   main                                     main.c
+    |->var init                             init.c
+	    |->pthread_mutex_init               pthread
+		          |->philo_life             philo.c
+				         |->is_dead         utils.c   
+	|->go                                   main.c
+	    |->pthread_create                   pthread
