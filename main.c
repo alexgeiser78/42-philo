@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 void	go(t_info data)
 {
-int i;
+	int	i;
 
-i = -1;
+	i = -1;
 	while (++i < data.num_of_philo)
 	{
-
-    pthread_create(&data.philo[i].thread, NULL, \
+		pthread_create(&data.philo[i].thread, NULL, \
 				&philo_life, &(data.philo[i]));
 	}
 }
@@ -46,7 +45,7 @@ i = -1;
 //If pthread_create() fails, no new thread is created and the contents of the 
 //location referenced by thread are undefined. 
 
- //RETURN VALUE
+//RETURN VALUE
 
 //If successful, the pthread_create() function returns zero. 
 //Otherwise, an error number is returned to indicate the error. 
@@ -71,8 +70,7 @@ void	freeall(t_info *data)
 //If successful, pthread_mutex_init() and pthread_mutex_destroy return zero.
 //Otherwise, an error number is returned to indicate the error.
 
-
-int	main(int argc, char *argv[]) 
+int	main(int argc, char *argv[])
 {
 	t_info	data;
 

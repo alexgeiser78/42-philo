@@ -20,9 +20,9 @@
 
 typedef struct l_philo
 {
-	int				id;  // to check
+	int				id;// to check
 	int				m_count; // to check what is this?
-	bool            is_eating; // to check
+	bool			is_eating; // to check
 	pthread_t		thread; //to check indentificateur de struct (nom du philo)
 	long int		last_meal; // to check
 	struct l_info	*info; // to check
@@ -32,24 +32,24 @@ typedef struct l_philo
 
 typedef struct l_info
 {
-	int				num_of_philo; 
+	int				num_of_philo;
 	int				time_to_die; //temps avant de mourir apres le dernier repas ou temps total?
 	int				time_to_eat; // to check (temps pour manger)
 	int				time_to_sleep; // to check (temps pour dormir)
 	int				num_of_meals; // to check (nombre de repas)
-	int 		    philo_eat; // what is this?
-	int				stop;       // to check
-	long int		t_start;       //t_start?
-	t_philo			*philo;     //malloc created for each philo
+	int				philo_eat; // what is this?
+	int				stop; // to check
+	long int		t_start; //t_start?
+	t_philo			*philo; //malloc created for each philo
 	pthread_mutex_t	essai; // to remove
 	pthread_mutex_t	print; // to check and remove
 	pthread_mutex_t	m_stop; // what is this?
 	pthread_mutex_t	m_eat; // what is this?
-	pthread_mutex_t	dead;  // what is this?
+	pthread_mutex_t	dead; // what is this?
 }	t_info;
 
 int		var_init(t_info *data, char *argv[]);
-void	go(t_info data);   // to remove
+void	go(t_info data); // to remove
 void	*philo_life(void *phi); //to check
 int		ft_atoi(const char *str); //libft
 int		ft_isdigit(int c); //libft

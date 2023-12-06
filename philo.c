@@ -19,7 +19,6 @@ void	*philo_life(void *phi)
 
 	philosofer = (t_philo *)phi;
 	while (!is_dead(philosofer, 0))
-{
-	
-}
+	{
+	}
 }

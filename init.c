@@ -43,10 +43,10 @@ int	var_init(t_info *data, char *argv[])
 	if (!data->philo)
 		return (2);
 	if (check_num(argv) == 1)
-		{
-			printf("Error: wrong argument\n");
-			return (1);
-		}
+	{
+		printf("Error: wrong argument\n");
+		return (1);
+	}
 	data->philo_eat = 0;
 	data->num_of_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
