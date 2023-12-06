@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <stdio.h>
+# include <sys/time.h> //gettimeofday
 
 typedef struct l_philo
 {
@@ -39,7 +40,7 @@ typedef struct l_info
 	int				num_of_meals; // to check (nombre de repas)
 	int				philo_eat; // what is this?
 	int				stop; // to check
-	long int		t_start; //t_start?
+	long int		t_start; // to check (hour of start)
 	t_philo			*philo; //malloc created for each philo
 	pthread_mutex_t	essai; // to remove
 	pthread_mutex_t	print; // to check and remove
@@ -48,11 +49,13 @@ typedef struct l_info
 	pthread_mutex_t	dead; // what is this?
 }	t_info;
 
-int		var_init(t_info *data, char *argv[]);
-void	go(t_info data); // to remove
-void	*philo_life(void *phi); //to check
-int		ft_atoi(const char *str); //libft
-int		ft_isdigit(int c); //libft
-int		is_dead(t_philo *philo, int nb); //to check
+int			var_init(t_info *data, char *argv[]);
+long long	timestamp(void);
+void		*philo_life(void *phi); //to check
+int			ft_atoi(const char *str); //libft
+int			ft_isdigit(int c); //libft
+int			is_dead(t_philo *philo, int nb); //to check
+int			philo_init(t_info *data);
+
 
 #endif

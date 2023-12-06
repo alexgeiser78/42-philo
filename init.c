@@ -12,6 +12,63 @@
 
 #include "philo.h"
 
+int	philo_init(t_info *data)
+{
+	int	i;
+
+	data->t_start = timestamp();
+	printf("t_start = %ld\n", data->t_start); //
+	i = -1;
+	while (++i < data->num_of_philo)
+	{
+		data->philo[i].id = i + 1;
+		data->philo[i].last_meal = 0;
+		data->philo[i].fork_r = NULL;
+		data->philo[i].info = data;
+		data->philo[i].m_count = 0;
+		pthread_mutex_init(&(data->philo[i].fork_l), NULL);
+		if (i == data->num_of_philo - 1)
+			data->philo[i].fork_r = &data->philo[0].fork_l;
+		else
+			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
+		if (pthread_create(&data->philo[i].thread, NULL, \
+				&philo_life, &(data->philo[i])) != 0)
+			return (-1);
+	}
+	i = -1;
+	while (++i < data->num_of_philo)
+		if (pthread_join(data->philo[i].thread, NULL) != 0)
+			return (-1);
+	return (0);
+}
+//pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+//    void *(*start_routine)(void*), void *arg);
+
+//pthread_create() create a new thread, with attributes specified by attr
+//If attr is NULL, the default attributes are used. 
+//If the attributes specified by attr are modified later, the thread's attributes 
+//are not affected. Upon successful completion, pthread_create() stores the ID of 
+//the created thread in the location referenced by thread.
+
+//start_routine with arg as its sole argument. If the start_routine returns, 
+//the effect is as if there was an implicit call to pthread_exit() 
+//using the return value of start_routine as the exit status. Note that 
+//the thread in which main() was originally invoked differs from this. 
+//When it returns from main(), the effect is as if there was an implicit 
+//call to exit() using the return value of main() as the exit status.
+
+//The signal state of the new thread is initialised as follows:
+//The signal mask is inherited from the creating thread.
+//The set of signals pending for the new thread is empty.
+//If pthread_create() fails, no new thread is created and the contents of the 
+//location referenced by thread are undefined. 
+
+//RETURN VALUE
+
+//If successful, the pthread_create() function returns zero. 
+//Otherwise, an error number is returned to indicate the error. 
+
+
 int	check_num(char **str)
 {
 	int	i;
@@ -33,7 +90,8 @@ int	check_num(char **str)
 }
 
 int	var_init(t_info *data, char *argv[])
-{
+{	
+	pthread_mutex_init(&data->essai, NULL);//
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->m_stop, NULL);
 	pthread_mutex_init(&data->m_eat, NULL);
@@ -58,6 +116,10 @@ int	var_init(t_info *data, char *argv[])
 		return (1);
 	return (0);
 }
+
+//mutex (from mutual exclusion) is a synchronization 
+//primitive that prevents state from being modified 
+//or accessed by multiple threads of execution at once
 
 //pthread_mutex_init()initialises the mutex 
 //referenced by mutex with attributes specified by attr. 

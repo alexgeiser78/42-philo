@@ -7,10 +7,23 @@ ligne de commande pour lancer le prog: ./philo_one
 										(number_of_time_each_philosophers_must_eat)
 
 
-   main                                     main.c
+   main                                     main.c		check arg numbers
     |->var init                             init.c
 	    |->pthread_mutex_init               pthread
-		          |->philo_life             philo.c
+		          |->timestamp				utils.c
+		                 |->philo_life      philo.c
 				         |->is_dead         utils.c   
 	|->go                                   main.c
 	    |->pthread_create                   pthread
+
+
+
+used:
+pthread_mutex_init, malloc, free, printf,
+
+autorised:
+memset, printf, malloc, free, write,
+usleep, gettimeofday, pthread_create,
+pthread_detach, pthread_join, pthread_mutex_init,
+pthread_mutex_destroy, pthread_mutex_lock,
+pthread_mutex_unlock
