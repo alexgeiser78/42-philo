@@ -17,9 +17,10 @@ long long	timestamp(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-    printf("tv.tv_sec = %ld\n", tv.tv_sec); //
-    printf("tv.tv_usec = %d\n", tv.tv_usec); //
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+    printf("timestamp\n"); //
+    printf("sec since epoch = %ld\n", tv.tv_sec); //
+    printf("microseconds since last second = %d\n", tv.tv_usec); //
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000); // multiply and divide by 1000 to get milliseconds
 }
 
 //gettimeofday() function gets the system's clock time

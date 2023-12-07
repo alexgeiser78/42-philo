@@ -16,8 +16,8 @@ int	philo_init(t_info *data)
 {
 	int	i;
 
-	data->t_start = timestamp();
-	printf("t_start = %ld\n", data->t_start); //
+	data->start = timestamp();
+	printf("start = %ldms since epoch\n", data->start); //
 	i = -1;
 	while (++i < data->num_of_philo)
 	{
@@ -26,11 +26,18 @@ int	philo_init(t_info *data)
 		data->philo[i].fork_r = NULL;
 		data->philo[i].info = data;
 		data->philo[i].m_count = 0;
-		pthread_mutex_init(&(data->philo[i].fork_l), NULL);
+		printf("data in malloc %d = %p\n", data->philo[i].id, data); //
+		//pthread_mutex_init(&(data->philo[i].fork_l), NULL); // remove & maybe
 		if (i == data->num_of_philo - 1)
-			data->philo[i].fork_r = &data->philo[0].fork_l;
+			{
+			printf("if\n"); //
+			//data->philo[i].fork_r = &data->philo[0].fork_l;
+			}	
 		else
-			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
+			{
+			printf("else\n"); //
+			//data->philo[i].fork_r = &data->philo[i + 1].fork_l;
+			}
 		if (pthread_create(&data->philo[i].thread, NULL, \
 				&philo_life, &(data->philo[i])) != 0)
 			return (-1);
@@ -69,25 +76,7 @@ int	philo_init(t_info *data)
 //Otherwise, an error number is returned to indicate the error. 
 
 
-int	check_num(char **str)
-{
-	int	i;
-	int	j;
 
-	i = 1;
-	while (str[i])
-	{
-		j = 0;
-		while (str[i][j])
-		{
-			if (!ft_isdigit(str[i][j]))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	var_init(t_info *data, char *argv[])
 {	
@@ -96,15 +85,12 @@ int	var_init(t_info *data, char *argv[])
 	pthread_mutex_init(&data->m_stop, NULL);
 	pthread_mutex_init(&data->m_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
+	printf("6 mutex created\n"); //
 	data->stop = 0;
 	data->philo = malloc(sizeof(t_philo) * data->num_of_philo);
+	printf("malloc created for each philo\n"); //
 	if (!data->philo)
-		return (2);
-	if (check_num(argv) == 1)
-	{
-		printf("Error: wrong argument\n");
 		return (1);
-	}
 	data->philo_eat = 0;
 	data->num_of_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -112,8 +98,10 @@ int	var_init(t_info *data, char *argv[])
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->num_of_meals = ft_atoi(argv[5]);
+	printf("args into struct\n"); //
 	if (argv[5] && data->num_of_meals == 0)
 		return (1);
+	printf("check if argv[5] is 0 which can't be\n"); //
 	return (0);
 }
 

@@ -17,7 +17,7 @@ NO_COLOR = \033[0m
 
 NAME = philo
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 RM = rm -rf
 

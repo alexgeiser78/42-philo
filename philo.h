@@ -21,7 +21,7 @@
 
 typedef struct l_philo
 {
-	int				id;// to check
+	int				id;// id of the philo
 	int				m_count; // to check what is this?
 	bool			is_eating; // to check
 	pthread_t		thread; //to check indentificateur de struct (nom du philo)
@@ -38,9 +38,9 @@ typedef struct l_info
 	int				time_to_eat; // to check (temps pour manger)
 	int				time_to_sleep; // to check (temps pour dormir)
 	int				num_of_meals; // to check (nombre de repas)
+	long int		start; // ms since epoch
 	int				philo_eat; // what is this?
 	int				stop; // to check
-	long int		t_start; // to check (hour of start)
 	t_philo			*philo; //malloc created for each philo
 	pthread_mutex_t	essai; // to remove
 	pthread_mutex_t	print; // to check and remove
@@ -49,6 +49,7 @@ typedef struct l_info
 	pthread_mutex_t	dead; // what is this?
 }	t_info;
 
+int			check_num(char **str);
 int			var_init(t_info *data, char *argv[]);
 long long	timestamp(void);
 void		*philo_life(void *phi); //to check

@@ -12,6 +12,26 @@
 
 #include "philo.h"
 
+int	check_num(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (!ft_isdigit(str[i][j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 
 void	freeall(t_info *data)
 {
@@ -20,7 +40,7 @@ void	freeall(t_info *data)
 	i = -1;
 	while (++i < data->num_of_philo)
 	{
-		pthread_mutex_destroy(&data->philo[i].fork_l);
+		//pthread_mutex_destroy(&data->philo[i].fork_l);
 		pthread_mutex_destroy(data->philo[i].fork_r);
 	}
 	free(data->philo);
@@ -39,6 +59,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 5 && argc != 6)
 		return (0);
+	printf("argc = %d\n", argc); //
 	if (var_init(&data, argv) == 1)
 	{
 		free(data.philo);
