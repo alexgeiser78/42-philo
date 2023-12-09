@@ -31,10 +31,34 @@ long long	timestamp(void)
 //since the last second.
 //Epoch is 00:00:00 UTC, January 1, 1970
 
-int	is_dead(t_philo *philo, int nb)
+void	ft_usleep(int ms)
 {
-    printf("is_dead\n");//
-    printf("%d", nb); //
-    free(philo); //
-    return(0);//
+	long int	time;
+
+	time = timestamp();
+	while (timestamp() - time < ms)
+		usleep(ms); // / 10  retour du /10
+    printf("sleep %dms\n", ms); //
 }
+//usleep() function suspends execution of the calling thread
+
+int	is_dead(t_philo *philo, int nb) // check what nb is
+{
+    printf("is_dead?\n");//
+    printf("nb = %d\n", nb); //
+	pthread_mutex_lock(&philo->info->dead);
+    printf("mutex lock\n"); //
+   
+	/*
+    
+    if (nb)
+		philo->info->stop = 1;
+	if (philo->info->stop)
+	{
+		pthread_mutex_unlock(&philo->info->dead);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->info->dead);*/
+	return (0);
+}
+

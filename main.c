@@ -66,6 +66,6 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	philo_init(&data);
-	freeall(&data);
+	//freeall(&data);
 }
 //data.philo = malloc created for each philo
