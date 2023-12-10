@@ -18,8 +18,6 @@ long long	timestamp(void)
 
 	gettimeofday(&tv, NULL);
     printf("timestamp\n"); //
-    printf("sec since epoch = %ld\n", tv.tv_sec); //
-    printf("microseconds since last second = %d\n", tv.tv_usec); //
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000); // multiply and divide by 1000 to get milliseconds
 }
 
@@ -45,20 +43,21 @@ void	ft_usleep(int ms)
 int	is_dead(t_philo *philo, int nb) // check what nb is
 {
     printf("is_dead?\n");//
-    printf("nb = %d\n", nb); //
 	pthread_mutex_lock(&philo->info->dead);
-    printf("mutex lock\n"); //
-   
-	/*
-    
+    printf("mutex philo->info->dead lock\n"); //
+    printf("nb = %d\n", nb); //
     if (nb)
+    {
 		philo->info->stop = 1;
-	if (philo->info->stop)
+        printf("philo->info->stop = %d\n", philo->info->stop); //
+    }
+    if (philo->info->stop)
 	{
 		pthread_mutex_unlock(&philo->info->dead);
-		return (1);
+		printf("phteard_mutex_unlock\n"); //
+        return (1);
 	}
-	pthread_mutex_unlock(&philo->info->dead);*/
+	pthread_mutex_unlock(&philo->info->dead);
 	return (0);
 }
 

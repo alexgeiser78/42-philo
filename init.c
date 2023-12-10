@@ -17,10 +17,11 @@ int	philo_init(t_info *data)
 	int	i;
 
 	data->start = timestamp();
-	printf("start = %ldms since epoch\n", data->start); //
+	printf("start = %ldms\n", data->start); //
 	i = 1;
 	while (i <= data->num_of_philo)
 	{
+		printf("while %d <= data->num_of_philo %d\n", i, data->num_of_philo); //
 		data->philo[i].id = i;
 		data->philo[i].last_meal = 0;
 		data->philo[i].fork_r = NULL;
@@ -52,6 +53,7 @@ int	philo_init(t_info *data)
 			return (-1);
 		i++;
 	}
+	printf("end of while\n"); //
 	i = 1;
 	while (i < data->num_of_philo)
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
