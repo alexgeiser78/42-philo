@@ -17,11 +17,11 @@ int	philo_init(t_info *data)
 	int	i;
 
 	data->start = timestamp();
-	printf("start = %ldms\n", data->start); //
+	printf("start = %ldms\n\n", data->start); //
 	i = 1;
 	while (i <= data->num_of_philo)
 	{
-		printf("while %d <= data->num_of_philo %d\n", i, data->num_of_philo); //
+		printf("while %d <= data->num_of_philo %d\n\n", i, data->num_of_philo); //
 		data->philo[i].id = i;
 		data->philo[i].last_meal = 0;
 		data->philo[i].fork_r = NULL;
@@ -34,6 +34,7 @@ int	philo_init(t_info *data)
 		printf("data->philo[%d].m_count = %d\n",i, data->philo[i].m_count); //
 		printf("data in malloc %d = %p\n", data->philo[i].id, data); //
 		pthread_mutex_init(&(data->philo[i].fork_l), NULL); // remove & maybe
+		printf("mutex data->philo[%d].fork_l initialised\n", i); //
 		if (i == data->num_of_philo)
 			{
 			printf("last philo\n"); //
@@ -42,22 +43,25 @@ int	philo_init(t_info *data)
 			}	
 		else
 			{
-			printf("first philo\n"); //
+			printf("not the last philo\n"); //
 			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
 			printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); //
 			}
-		printf("pthread_create\n"); //
+		printf("pthread_create [i]\n"); //
 		if (pthread_create(&data->philo[i].thread, NULL, \
 				&philo_life, &(data->philo[i])) != 0)
-			
+					return (-1);
+		i++;
+	}
+	printf("end of while\n\n"); //
+	i = 1;
+	while (i <= data->num_of_philo)
+	{
+		printf("pthread_join data->philo[%d].thread\n", i); //
+		if (pthread_join(data->philo[i].thread, NULL) != 0)
 			return (-1);
 		i++;
 	}
-	printf("end of while\n"); //
-	i = 1;
-	while (i < data->num_of_philo)
-		if (pthread_join(data->philo[i].thread, NULL) != 0)
-			return (-1);
 	return (0);
 }
 //pthread_create(pthread_t *thread, const pthread_attr_t *attr,

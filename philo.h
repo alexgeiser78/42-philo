@@ -25,7 +25,7 @@ typedef struct l_philo
 	int				id;// id of the philo
 	int				m_count; // to check what is this?
 	bool			is_eating; // to check
-	pthread_t		thread; //to check indentificateur de struct (nom du philo)
+	pthread_t		thread; // stores the thread id of the thread created
 	long int		last_meal; // to check
 	struct l_info	*info; // pointer to the struct info
 	pthread_mutex_t	fork_l;	// to check

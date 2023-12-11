@@ -10,14 +10,29 @@ adress sanitanizer!!
 
 
 
-   main                                     main.c		check arg numbers
+   main                                     main.c	check arg numbers
     |->var init                             init.c
-	    |->pthread_mutex_init               pthread
-		          |->timestamp				utils.c
-		                 |->philo_life      philo.c
-				         |->is_dead         utils.c   
-	|->go                                   main.c
-	    |->pthread_create                   pthread
+	    |->pthread_mutex_init               pthread	initiating the mutexes
+	|->philo init							init.c
+		|->timestamp						utils.c	timestamp fo start
+
+while (num_of_philo)
+        |->pthread_mutex_init				pthread fork_l initialised
+if (not last philo)
+				|->fork_r = fork_l [+ 1]
+if (last philo)
+				|->fork_r = fork_l [0]
+		|->phtread_mutex_create(philo_life)                 
+					|->philo_life      		philo.c
+if (philo id is pair)
+        |->ft_usleep(time_to_eat)			utils.c
+if (philo id is not pair)
+    	-
+while(is_dead = false)				         
+	|->is_dead         						utils.c   
+		|->pthread_mutex_lock(info->dead)	pthread	always return 0 in this case
+		|->pthread_mutex_unlock(info->dead)	pthread
+	|->pthread_create(check_death)			pthread
 
 
 

@@ -65,6 +65,7 @@ int	main(int argc, char *argv[])
 		free(data.philo);
 		return (0);
 	}
+	
 	philo_init(&data);
 	//freeall(&data);
 }

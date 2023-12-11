@@ -17,7 +17,7 @@ long long	timestamp(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-    printf("timestamp\n"); //
+    //printf("timestamp = %ld\n", tv.tv_sec * 1000 + tv.tv_usec / 1000); //
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000); // multiply and divide by 1000 to get milliseconds
 }
 
@@ -35,7 +35,9 @@ void	ft_usleep(int ms)
 
 	time = timestamp();
 	while (timestamp() - time < ms)
+        {
 		usleep(ms); // / 10  retour du /10
+        }
     printf("sleep %dms\n", ms); //
 }
 //usleep() function suspends execution of the calling thread
