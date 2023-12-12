@@ -29,11 +29,15 @@ if (philo id is pair)
 if (philo id is not pair)
     	-
 while(is_dead = false)				         
-	|->is_dead         						utils.c   
+	|->is_dead(0)         					utils.c   
 		|->pthread_mutex_lock(info->dead)	pthread	always return 0 in this case
 		|->pthread_mutex_unlock(info->dead)	pthread
 	|->pthread_create(check_death)			pthread
-
+	            	|->ft_usleep(ttd + 1)	utils.c
+					|->pthread mutexes lock	pthread
+					|-> if is dead(1)		utils.c
+							|-mut un dead	pthread
+					|->else
 
 
 used:

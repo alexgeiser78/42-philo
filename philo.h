@@ -19,11 +19,12 @@
 # include <stdio.h>
 # include <sys/time.h> //gettimeofday
 # include <unistd.h> //usleep
+# include <limits.h> //INT_MAX
 
 typedef struct l_philo
 {
 	int				id;// id of the philo
-	int				m_count; // to check what is this?
+	int				meal_count; // to check
 	bool			is_eating; // to check
 	pthread_t		thread; // stores the thread id of the thread created
 	long int		last_meal; // to check
@@ -45,8 +46,8 @@ typedef struct l_info
 	t_philo			*philo; //malloc created for each philo
 	pthread_mutex_t	essai; // to remove
 	pthread_mutex_t	print; // to check and remove
-	pthread_mutex_t	m_stop; // what is this?
-	pthread_mutex_t	m_eat; // what is this?
+	pthread_mutex_t	meal_stop; // to check 
+	pthread_mutex_t	meal_eat; // what is this?
 	pthread_mutex_t	dead; // pthread_mutex_lock(&philo->info->dead);
 }	t_info;
 
@@ -59,6 +60,7 @@ int			ft_atoi(const char *str); //libft
 int			ft_isdigit(int c); //libft
 int			is_dead(t_philo *philo, int nb); //to check
 void		ft_usleep(int ms);
+void		print(t_philo *philo, char *str); //to check
 
 
 #endif

@@ -45,8 +45,8 @@ void	freeall(t_info *data)
 	}
 	free(data->philo);
 	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->m_stop);
-	pthread_mutex_destroy(&data->m_eat);
+	pthread_mutex_destroy(&data->meal_stop);
+	pthread_mutex_destroy(&data->meal_eat);
 	pthread_mutex_destroy(&data->dead);
 }
 //pthread_mutex_destroy() function destroys the mutex object referenced by mutex

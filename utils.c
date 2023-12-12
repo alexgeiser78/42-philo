@@ -12,6 +12,7 @@
 
 #include "philo.h"
 
+
 long long	timestamp(void)
 {
 	struct timeval	tv;
@@ -42,12 +43,12 @@ void	ft_usleep(int ms)
 }
 //usleep() function suspends execution of the calling thread
 
-int	is_dead(t_philo *philo, int nb) // check what nb is
+int	is_dead(t_philo *philo, int nb) // dead = 1, alive = 0
 {
     printf("is_dead?\n");//
 	pthread_mutex_lock(&philo->info->dead);
     printf("mutex philo->info->dead lock\n"); //
-    printf("nb = %d\n", nb); //
+    printf("dead = %d\n", nb); //
     if (nb)
     {
 		philo->info->stop = 1;
@@ -61,5 +62,17 @@ int	is_dead(t_philo *philo, int nb) // check what nb is
 	}
 	pthread_mutex_unlock(&philo->info->dead);
 	return (0);
+}
+
+void	print(t_philo *philo, char *str)
+{
+	long int	time;
+
+	pthread_mutex_lock(&(philo->info->print));
+	time = timestamp() - philo->info->start;
+	if (!philo->info->stop && time >= 0 \
+			&& time <= INT_MAX && !is_dead(philo, 0))
+		printf("%lld %d %s", timestamp() - philo->info->start, philo->id, str);
+	pthread_mutex_unlock(&(philo->info->print));
 }
 

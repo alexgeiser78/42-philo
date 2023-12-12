@@ -26,12 +26,12 @@ int	philo_init(t_info *data)
 		data->philo[i].last_meal = 0;
 		data->philo[i].fork_r = NULL;
 		data->philo[i].info = data;
-		data->philo[i].m_count = 0;
+		data->philo[i].meal_count = 0;
 		printf("data->philo[%d].id = %d\n",i, data->philo[i].id); //
 		printf("data->philo[%d].last_meal = %ld\n",i, data->philo[i].last_meal); //
 		printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); //
 		printf("data->philo[%d].info = %p\n",i, data->philo[i].info); //
-		printf("data->philo[%d].m_count = %d\n",i, data->philo[i].m_count); //
+		printf("data->philo[%d].meal_count = %d\n",i, data->philo[i].meal_count); //
 		printf("data in malloc %d = %p\n", data->philo[i].id, data); //
 		pthread_mutex_init(&(data->philo[i].fork_l), NULL); // remove & maybe
 		printf("mutex data->philo[%d].fork_l initialised\n", i); //
@@ -47,7 +47,7 @@ int	philo_init(t_info *data)
 			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
 			printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); //
 			}
-		printf("pthread_create [i]\n"); //
+		printf("pthread_create [%d]\n", i); //
 		if (pthread_create(&data->philo[i].thread, NULL, \
 				&philo_life, &(data->philo[i])) != 0)
 					return (-1);
@@ -57,7 +57,7 @@ int	philo_init(t_info *data)
 	i = 1;
 	while (i <= data->num_of_philo)
 	{
-		printf("pthread_join data->philo[%d].thread\n", i); //
+		printf("pthread_join data->philo[%d].thread\n\n", i); //
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 			return (-1);
 		i++;
@@ -98,8 +98,8 @@ int	var_init(t_info *data, char *argv[])
 {	
 	pthread_mutex_init(&data->essai, NULL);//
 	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->m_stop, NULL);
-	pthread_mutex_init(&data->m_eat, NULL);
+	pthread_mutex_init(&data->meal_stop, NULL);
+	pthread_mutex_init(&data->meal_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
 	printf("6 mutex created\n"); //
 	data->stop = 0;
