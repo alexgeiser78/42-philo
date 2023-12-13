@@ -53,7 +53,7 @@ void	take_fork(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	//print(philo, " is eating\n");
+	print(philo, " is eating\n");
 	pthread_mutex_lock(&(philo->info->meal_eat));
 	philo->last_meal = timestamp();
 	philo->meal_count++;
@@ -61,19 +61,19 @@ void	philo_eat(t_philo *philo)
 	ft_usleep(philo->info->time_to_eat);
 	pthread_mutex_unlock((philo->fork_r));
 	pthread_mutex_unlock(&(philo->fork_l));
-	//print(philo, " is sleeping\n");
+	print(philo, " is sleeping\n");
 	ft_usleep(philo->info->time_to_sleep);
-	//print(philo, " is thinking\n");
+	print(philo, " is thinking\n");
 }
 
 
-void	*philo_life(void *phi)
+void	*philo_life(void *phi_struct)
 {
 	t_philo		*philosofer;
 	pthread_t	t;       
 	printf("philo_life\n"); //    
-	philosofer = (t_philo *)phi;
-	printf("philosofer = %p\n", philosofer); //
+	philosofer = (t_philo *)phi_struct;
+	printf("philosofer id = %d p = %p\n", philosofer->id % 2, philosofer); //
 	if (philosofer->id % 2 == 0) // if philosofer id is paire
 	{
 		printf("philo id is pair he eats, so:\n"); //
@@ -84,14 +84,28 @@ void	*philo_life(void *phi)
 		printf("philo id is impair\n"); //
 	
 
-	while (!is_dead(philosofer, 0)) // 0 probably egual to the last philo
+	while (!is_dead(philosofer, 0)) // 0 = alive, 1 = dead
 	{
 		printf("new thread\n"); //
-		pthread_create(&t, NULL, check_death, phi);
+		pthread_create(&t, NULL, check_death, phi_struct);
 		take_fork(philosofer);
-		//philo_eat(philosofer);
-		//pthread_detach(t);
-		break;
+		philo_eat(philosofer);
+		pthread_detach(t);
+		if (philosofer->meal_count == philosofer->info->num_of_meals)
+		{
+			pthread_mutex_lock(&philosofer->info->meal_stop);
+			if (++philosofer->info->philo_eat == philosofer->info->num_of_philo)
+			{
+				pthread_mutex_unlock(&philosofer->info->meal_stop);
+				is_dead(philosofer, 2);
+			}
+			pthread_mutex_unlock(&philosofer->info->meal_stop);
+			return (NULL);
+		}	
 	}
 	return (0);
 }
+
+//pthread detach() When a detached thread terminates, 
+//its resources are released to the system without
+//another thread to join with the terminated thread.

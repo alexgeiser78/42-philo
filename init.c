@@ -45,7 +45,7 @@ int	philo_init(t_info *data)
 			{
 			printf("not the last philo\n"); //
 			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
-			printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); //
+			printf("data->philo[%d].fork_r = data->philo[%d + 1].fork_l\n",i, i); //
 			}
 		printf("pthread_create [%d]\n", i); //
 		if (pthread_create(&data->philo[i].thread, NULL, \
@@ -64,44 +64,31 @@ int	philo_init(t_info *data)
 	}
 	return (0);
 }
-//pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-//    void *(*start_routine)(void*), void *arg);
 
-//pthread_create() create a new thread, with attributes specified by attr
+//pthread_create() create a new thread.
 //If attr is NULL, the default attributes are used. 
-//If the attributes specified by attr are modified later, the thread's attributes 
-//are not affected. Upon successful completion, pthread_create() stores the ID of 
+//Upon successful completion, pthread_create() stores the ID of 
 //the created thread in the location referenced by thread.
 
-//start_routine with arg as its sole argument. If the start_routine returns, 
-//the effect is as if there was an implicit call to pthread_exit() 
-//using the return value of start_routine as the exit status. Note that 
-//the thread in which main() was originally invoked differs from this. 
-//When it returns from main(), the effect is as if there was an implicit 
-//call to exit() using the return value of main() as the exit status.
+//start_routine (&philo_life)
+// If the start_routine returns, call to pthread_exit() 
 
 //The signal state of the new thread is initialised as follows:
 //The signal mask is inherited from the creating thread.
 //The set of signals pending for the new thread is empty.
-//If pthread_create() fails, no new thread is created and the contents of the 
-//location referenced by thread are undefined. 
 
-//RETURN VALUE
-
-//If successful, the pthread_create() function returns zero. 
-//Otherwise, an error number is returned to indicate the error. 
+//pthread_join() waits for the thread specified by thread to terminate.
 
 
 
 
 int	var_init(t_info *data, char *argv[])
 {	
-	pthread_mutex_init(&data->essai, NULL);//
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->meal_stop, NULL);
 	pthread_mutex_init(&data->meal_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
-	printf("6 mutex created\n"); //
+	printf("4 mutex created\n"); //
 	data->stop = 0;
 	data->philo = malloc(sizeof(t_philo) * data->num_of_philo);
 	printf("malloc created for each philo\n"); //

@@ -44,7 +44,6 @@ typedef struct l_info
 	int				philo_eat; // what is this?
 	int				stop; // to check
 	t_philo			*philo; //malloc created for each philo
-	pthread_mutex_t	essai; // to remove
 	pthread_mutex_t	print; // to check and remove
 	pthread_mutex_t	meal_stop; // to check 
 	pthread_mutex_t	meal_eat; // what is this?

@@ -36,8 +36,37 @@ while(is_dead = false)
 	            	|->ft_usleep(ttd + 1)	utils.c
 					|->pthread mutexes lock	pthread
 					|-> if is dead(1)		utils.c
-							|-mut un dead	pthread
+							|->mut un dead	pthread
 					|->else
+					|-> mutexes unlock		pthread
+	|->take_fork							philo.c
+		|->pthread_mutex_lock (fork_l)		pthread
+			|->if num of philo = 1 
+					|->time_to_die * 2
+		|->pthread_mutex_lock (fork_r)		pthread
+	|->philo_eat							philo.c
+		|->print (is eating)				utils.c
+		|->pthread_mutex_lock (meal_eat)	pthread
+		|->pthread_mutex_unlock (meal eat)	pthread
+		|->ft_usleep (tte)					utils.c
+		|->pthread_mutex_unlock (fork_r)	pthread
+		|->pthread_mutex_unlock (fork_l)	pthread
+		|->print (is sleeping)				utils.c			
+		|->ft_usleep(tts)					utils.c
+		|->print (is thinking)				utils.c
+	|->pthread_detach(t)					pthread
+	|->if (meal count = meal argv[5])
+		|->pthread_mutex_lock (meal stop)	pthread
+			if (philo_eat = num_of_philo)
+				|->pthred_mut_unlck(m_stop)	pthread
+				|->id_dead (2)				utils.c
+	|->pthread_mutex_unlock (meal_stop)		utils.c
+end of while(!isdead)
+end of while(num_of_philo)
+while(num_of_philo)
+		|->pthread_join						pthread
+end of while(num_of_philo)
+			
 
 
 used:
