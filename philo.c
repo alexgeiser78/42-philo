@@ -71,9 +71,10 @@ void	*philo_life(void *phi_struct)
 {
 	t_philo		*philosofer;
 	pthread_t	t;       
-	printf("philo_life\n"); //    
+	
 	philosofer = (t_philo *)phi_struct;
-	printf("philosofer id = %d p = %p\n", philosofer->id % 2, philosofer); //
+	printf("philo %d\n", philosofer->id); //);  
+	printf("philosofer id = %d p = %p\n", philosofer->id, philosofer); //
 	if (philosofer->id % 2 == 0) // if philosofer id is paire
 	{
 		printf("philo id is pair he eats, so:\n"); //
@@ -104,6 +105,7 @@ void	*philo_life(void *phi_struct)
 		}	
 	}
 	return (0);
+
 }
 
 //pthread detach() When a detached thread terminates, 

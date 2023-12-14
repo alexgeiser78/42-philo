@@ -57,10 +57,11 @@ int	is_dead(t_philo *philo, int nb) // dead = 1, alive = 0
     if (philo->info->stop)
 	{
 		pthread_mutex_unlock(&philo->info->dead);
-		printf("phteard_mutex_unlock\n"); //
+		printf("mutex philo->info->dead unlock\n"); //
         return (1);
 	}
 	pthread_mutex_unlock(&philo->info->dead);
+	printf("mutex philo->info->dead unlock\n"); //
 	return (0);
 }
 

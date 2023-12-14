@@ -40,7 +40,7 @@ void	freeall(t_info *data)
 	i = -1;
 	while (++i < data->num_of_philo)
 	{
-		//pthread_mutex_destroy(&data->philo[i].fork_l);
+		pthread_mutex_destroy(&data->philo[i].fork_l);
 		pthread_mutex_destroy(data->philo[i].fork_r);
 	}
 	free(data->philo);
@@ -67,6 +67,6 @@ int	main(int argc, char *argv[])
 	}
 	
 	philo_init(&data);
-	//freeall(&data);
+	freeall(&data);
 }
 //data.philo = malloc created for each philo
