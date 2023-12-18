@@ -33,21 +33,20 @@ int	philo_run(t_info *data)
 		printf("data->philo[%d].info = %p\n",i, data->philo[i].info); //
 		printf("data->philo[%d].meal_count = %d\n",i, data->philo[i].meal_count); //
 		printf("data in malloc %d = %p\n", data->philo[i].id, data); //
-		pthread_mutex_init(&(data->philo[i].fork_l), NULL); // remove & maybe
+		pthread_mutex_init(&(data->philo[i].fork_l), NULL); // theorie de la fourchette gauche
 		printf("mutex data->philo[%d].fork_l initialised\n", i); //
 		if (i == data->num_of_philo -1)
 			{
 			printf("last philo\n"); //
 			data->philo[i].fork_r = &data->philo[0].fork_l;
-			printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); //
+			printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); // theorie de la fourchette 0
 			}	
 		else
 			{
 			printf("not the last philo\n"); //
 			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
-			printf("data->philo[%d].fork_r = data->philo[%d + 1].fork_l\n",i, i); //
+			printf("data->philo[%d].fork_r = data->philo[%d + 1].fork_l\n",i, i); //theorie de la fourchette  + 1
 			}
-		//printf("pthread_create [%d]\n", i); //
 		if (pthread_create(&data->philo[i].thread, NULL, \
 				&philo_life, &(data->philo[i])) != 0)
 					{
@@ -74,11 +73,9 @@ int	philo_run(t_info *data)
 //the created thread in the location referenced by thread.
 
 //start_routine (&philo_life)
-// If the start_routine returns, call to pthread_exit() 
 
 //The signal state of the new thread is initialised as follows:
 //The signal mask is inherited from the creating thread.
-//The set of signals pending for the new thread is empty.
 
 //pthread_join() waits for the thread specified by thread to terminate.
 

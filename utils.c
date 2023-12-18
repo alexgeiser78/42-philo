@@ -73,7 +73,7 @@ void	print(t_philo *philo, char *str)
 	time = timestamp() - philo->info->start;
 	if (!philo->info->stop && time >= 0 \
 			&& time <= INT_MAX && !is_dead(philo, 0))
-		printf("%lldms id %d %s", timestamp() - philo->info->start, philo->id, str);
+		printf("%lldms id %d %s", timestamp() - philo->info->start, philo->id, str); // wow
 	pthread_mutex_unlock(&(philo->info->print));
 }
 

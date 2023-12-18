@@ -44,7 +44,7 @@ void	take_fork(t_philo *philo)
 	print(philo, " has taken a fork\n");
 	if (philo->info->num_of_philo == 1)
 	{
-		ft_usleep(philo->info->time_to_die * 2);
+		ft_usleep(philo->info->time_to_die * 2); // *2 to check 
 		return ;
 	}
 	pthread_mutex_lock((philo->fork_r));
@@ -77,7 +77,7 @@ void	*philo_life(void *phi_struct)
 	printf("philosofer id = %d p = %p\n", philosofer->id, philosofer); //
 	if (philosofer->id % 2 == 0) // if philosofer id is paire
 	{
-		printf("philo id is pair he eats, so:\n"); //
+		printf("philo id is pair he waits\n"); //
 		ft_usleep(philosofer->info->time_to_eat); // / 10  or not ? because timestamp 10 x / ms
 		printf("ft_usleep time to eat %d\n", philosofer->info->time_to_eat); //
 	}
