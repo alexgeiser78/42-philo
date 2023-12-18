@@ -91,7 +91,7 @@ void	*philo_life(void *phi_struct)
 		pthread_create(&t, NULL, check_death, phi_struct);
 		take_fork(philosofer);
 		philo_eat(philosofer);
-		pthread_detach(t);
+		pthread_detach(t); // pas clair
 		if (philosofer->meal_count == philosofer->info->num_of_meals)
 		{
 			pthread_mutex_lock(&philosofer->info->meal_stop);
