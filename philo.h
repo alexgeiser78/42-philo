@@ -52,7 +52,7 @@ typedef struct l_info
 
 int			check_num(char **str);
 int			var_init(t_info *data, char *argv[]);
-int			philo_init(t_info *data);
+int			philo_run(t_info *data);
 long long	timestamp(void);
 void		*philo_life(void *phi); //to check
 int			ft_atoi(const char *str); //libft

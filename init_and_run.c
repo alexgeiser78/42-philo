@@ -12,12 +12,12 @@
 
 #include "philo.h"
 
-int	philo_init(t_info *data)
+int	philo_run(t_info *data)
 {
 	int	i;
 
 	data->start = timestamp();
-	printf("start = %ldms\n\n", data->start); //
+	printf("data->start = %ldms\n\n", data->start); //
 	i = -1;
 	while (++i < data->num_of_philo)
 	{
@@ -92,22 +92,25 @@ int	var_init(t_info *data, char *argv[])
 	pthread_mutex_init(&data->meal_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
 	printf("4 mutex created\n"); //
-	data->stop = 0;
+
 	data->philo = malloc(sizeof(t_philo) * data->num_of_philo);
 	printf("malloc created for each philo\n"); //
 	if (!data->philo)
 		return (1);
+	data->stop = 0;
 	data->philo_eat = 0;
 	data->num_of_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	if (argv[5] && data->num_of_meals == 0)
+	{
+		printf("num_of_meals = 0\n");
+		return (1);
+	}
 	if (argv[5])
 		data->num_of_meals = ft_atoi(argv[5]);
 	printf("args into struct\n"); //
-	if (argv[5] && data->num_of_meals == 0)
-		return (1);
-	printf("check if argv[5] is 0 which can't be\n"); //
 	return (0);
 }
 

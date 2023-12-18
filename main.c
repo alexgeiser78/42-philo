@@ -49,24 +49,26 @@ void	freeall(t_info *data)
 	pthread_mutex_destroy(&data->meal_eat);
 	pthread_mutex_destroy(&data->dead);
 }
-//pthread_mutex_destroy() function destroys the mutex object referenced by mutex
+//pthread_mutex_destroy() destroys the mutex object
 //If successful, pthread_mutex_init() and pthread_mutex_destroy return zero.
-//Otherwise, an error number is returned to indicate the error.
 
 int	main(int argc, char *argv[])
 {
 	t_info	data;
 
-	if (argc != 5 && argc != 6)
-		return (0);
 	printf("argc = %d\n", argc); //
+	if (argc != 5 && argc != 6)
+{
+	printf(" args: ./philo num_of_philo time_to_die time_to_eat time_to_sleep\n");
+		return (0);
+}
 	if (var_init(&data, argv) == 1)
 	{
 		free(data.philo);
 		return (0);
-	}
-	
-	philo_init(&data);
+	}	
+	philo_run(&data);
 	freeall(&data);
 }
+
 //data.philo = malloc created for each philo

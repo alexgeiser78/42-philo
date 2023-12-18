@@ -22,7 +22,7 @@ CFLAGS =  -Wall -Wextra -Werror -fsanitize=address
 RM = rm -rf
 
 SRC_FILES = 	main.c\
-				init.c \
+				init_and_run.c \
 				philo.c \
 				utils.c \
 				libphil.c

@@ -34,7 +34,7 @@ void	*check_death(void *phi)
 	}
 	pthread_mutex_unlock(&philosofer->info->meal_eat);
 	pthread_mutex_unlock(&philosofer->info->meal_stop);
-
+	printf("check_death mutexes meal_eat, meal stop unlocked\n"); //
 	return (NULL);
 }
 
