@@ -32,7 +32,6 @@ int	check_num(char **str)
 	return (0);
 }
 
-
 void	freeall(t_info *data)
 {
 	int	i;
@@ -52,23 +51,49 @@ void	freeall(t_info *data)
 //pthread_mutex_destroy() destroys the mutex object
 //If successful, pthread_mutex_init() and pthread_mutex_destroy return zero.
 
+void	mutex_init(t_info *data)
+{
+	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->meal_stop, NULL);
+	pthread_mutex_init(&data->meal_eat, NULL);
+	pthread_mutex_init(&data->dead, NULL);
+	printf("4 mutex initialised\n"); //
+}
+
+//mutex (from mutual exclusion) is a synchronization 
+//primitive that prevents state from being modified 
+//or accessed by multiple threads of execution at once
+
+//pthread_mutex_init()initialises the mutex 
+//referenced by mutex with attributes specified by attr. 
+//If attr is NULL, the default mutex attributes are used
+//the effect is the same as passing the address of a 
+//default mutex attributes object. Upon successful initialisation, 
+//the state of the mutex becomes initialised and unlocked. 
+
 int	main(int argc, char *argv[])
 {
 	t_info	data;
 
-	printf("argc = %d\n", argc); //
 	if (argc != 5 && argc != 6)
-{
-	printf(" args: ./philo num_of_philo time_to_die time_to_eat time_to_sleep\n");
+	{
+		printf("./philo num_of_philo time_to_die time_to_eat time_to_sleep\n");
 		return (0);
-}
+	}
+	mutex_init(&data);
 	if (var_init(&data, argv) == 1)
 	{
 		free(data.philo);
 		return (0);
-	}	
-	philo_run(&data);
+	}
+	if (philo_run(&data) != 0)
+	{	
+		printf("thread error\n"); //
+		freeall(&data);
+		return (0);
+	}
 	freeall(&data);
+	return (0);
 }
 
 //data.philo = malloc created for each philo
