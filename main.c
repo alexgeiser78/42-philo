@@ -57,7 +57,7 @@ void	mutex_init(t_info *data)
 	pthread_mutex_init(&data->meal_stop, NULL);
 	pthread_mutex_init(&data->meal_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
-	printf("4 mutex initialised\n"); //
+	//printf("4 mutex initialised\n"); //
 }
 
 //mutex (from mutual exclusion) is a synchronization 

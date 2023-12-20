@@ -19,9 +19,10 @@ long long	timestamp(void)
 
 	gettimeofday(&tv, NULL);
     //printf("timestamp = %ld\n", tv.tv_sec * 1000 + tv.tv_usec / 1000); //
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000); // multiply and divide by 1000 to get milliseconds
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
+// multiply and divide by 1000 to get milliseconds
 //gettimeofday() function gets the system's clock time
 //and stores it in the timeval structure 
 //pointed to by tv (tv_sec and tv_usec)
@@ -37,33 +38,11 @@ void	ft_usleep(int ms)
 	time = timestamp();
 	while (timestamp() - time < ms)
         {
-		usleep(ms); // / 10  retour du /10
+		usleep(ms);
         }
-    printf("sleep %dms\n", ms); //
+    //printf("sleep %dms\n", ms); //
 }
 //usleep() function suspends execution of the calling thread
-
-int	is_dead(t_philo *philo, int nb) // dead = 1, alive = 0
-{
-    printf("is_dead?\n");//
-	pthread_mutex_lock(&philo->info->dead);
-    printf("mutex philo->info->dead lock\n"); //
-    printf("dead = %d\n", nb); //
-    if (nb)
-    {
-		philo->info->stop = 1;
-        printf("philo->info->stop = %d\n", philo->info->stop); //
-    }
-    if (philo->info->stop)
-	{
-		pthread_mutex_unlock(&philo->info->dead);
-		printf("mutex philo->info->dead unlock\n"); //
-        return (1);
-	}
-	pthread_mutex_unlock(&philo->info->dead);
-	printf("mutex philo->info->dead unlock\n"); //
-	return (0);
-}
 
 void	print(t_philo *philo, char *str)
 {

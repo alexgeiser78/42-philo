@@ -12,58 +12,65 @@
 
 #include "philo.h"
 
-int	philo_run(t_info *data)
+void	struct_init(t_info *data, int i)
 {
-	int	i;
-
-	data->start = timestamp();
-	printf("data->start = %ldms\n\n", data->start); //
-	i = -1;
-	while (++i < data->num_of_philo)
-	{
-		printf("while %d < data->num_of_philo %d\n\n", i, data->num_of_philo); //
 		data->philo[i].id = i + 1;
 		data->philo[i].last_meal = 0;
 		data->philo[i].fork_r = NULL;
 		data->philo[i].info = data;
 		data->philo[i].meal_count = 0;
-		printf("data->philo[%d].id = %d\n",i, data->philo[i].id); //
-		printf("data->philo[%d].last_meal = %ld\n",i, data->philo[i].last_meal); //
-		printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); //
-		printf("data->philo[%d].info = %p\n",i, data->philo[i].info); //
-		printf("data->philo[%d].meal_count = %d\n",i, data->philo[i].meal_count); //
-		printf("data in malloc %d = %p\n", data->philo[i].id, data); //
-		pthread_mutex_init(&(data->philo[i].fork_l), NULL); // theorie de la fourchette gauche
-		printf("mutex data->philo[%d].fork_l initialised\n", i); //
+}
+
+int	join_thread(t_info *data, int i)
+{
+	i = -1;
+	while (++i < data->num_of_philo)
+	{
+		//printf("pthread_join data->philo[%d].thread\n\n", i); //
+		if (pthread_join(data->philo[i].thread, NULL) != 0)
+			return (-1);
+	}
+	return (0);
+}
+
+//pthread_join() waits for the thread specified by thread to terminate.
+
+int	philo_run(t_info *data)
+{
+	int	i;
+
+	data->start = timestamp();
+	//printf("data->start = %ldms\n\n", data->start); //
+	i = -1;
+	while (++i < data->num_of_philo)
+	{
+		//printf("while %d < data->num_of_philo %d\n\n", i, data->num_of_philo); //
+		struct_init(data, i);
+		pthread_mutex_init(&(data->philo[i].fork_l), NULL);
+		//printf("mutex data->philo[%d].fork_l initialised\n", i); //
 		if (i == data->num_of_philo -1)
 			{
-			printf("last philo\n"); //
+			//printf("last philo\n"); //
 			data->philo[i].fork_r = &data->philo[0].fork_l;
-			printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r); // theorie de la fourchette 0
+			//printf("data->philo[%d].fork_r = %p\n",i, data->philo[i].fork_r);
 			}	
 		else
 			{
-			printf("not the last philo\n"); //
+			//printf("not the last philo\n"); //
 			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
-			printf("data->philo[%d].fork_r = data->philo[%d + 1].fork_l\n",i, i); //theorie de la fourchette  + 1
+			//printf("data->philo[%d].fork_r = data->philo[%d + 1].fork_l\n",i, i);
 			}
 		if (pthread_create(&data->philo[i].thread, NULL, \
 				&philo_life, &(data->philo[i])) != 0)
 					{
-					printf("pthread_create error\n"); //
+					//printf("pthread_create error\n"); //
 					return (-1);
 					}
-		else
-			printf("pthread_create success\n"); //
+		//else
+			//printf("pthread_create success\n"); //
 	}
-	printf("end of while\n\n"); //
-	i = -1;
-	while (++i < data->num_of_philo)
-	{
-		printf("pthread_join data->philo[%d].thread\n\n", i); //
-		if (pthread_join(data->philo[i].thread, NULL) != 0)
-			return (-1);
-	}
+	//printf("end of while\n\n"); //
+	join_thread(data, i);
 	return (0);
 }
 
@@ -74,24 +81,15 @@ int	philo_run(t_info *data)
 
 //start_routine (&philo_life)
 
-//The signal state of the new thread is initialised as follows:
-//The signal mask is inherited from the creating thread.
-
-//pthread_join() waits for the thread specified by thread to terminate.
-
+//mutex data->philo[%d].fork_l is not a pointer 
+//data->philo[i].fork_r pointer to mutex
 
 
 
 int	var_init(t_info *data, char *argv[])
 {	
-	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->meal_stop, NULL);
-	pthread_mutex_init(&data->meal_eat, NULL);
-	pthread_mutex_init(&data->dead, NULL);
-	printf("4 mutex created\n"); //
-
 	data->philo = malloc(sizeof(t_philo) * data->num_of_philo);
-	printf("malloc created for each philo\n"); //
+	//printf("malloc created for each philo\n"); //
 	if (!data->philo)
 		return (1);
 	data->stop = 0;
@@ -100,14 +98,14 @@ int	var_init(t_info *data, char *argv[])
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argv[5] && data->num_of_meals == 0)
+	if (argv[6] && data->num_of_meals == 0)
 	{
 		printf("num_of_meals = 0\n");
 		return (1);
 	}
 	if (argv[5])
 		data->num_of_meals = ft_atoi(argv[5]);
-	printf("args into struct\n"); //
+	//printf("args into struct\n"); //
 	return (0);
 }
 
