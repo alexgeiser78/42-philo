@@ -33,8 +33,8 @@ typedef struct l_philo
 
 typedef struct l_info
 {
-	int				num_of_philo;
 	int				time_to_die; // time to die after last meal
+	int				num_of_philo;
 	int				time_to_eat; 
 	int				time_to_sleep;
 	int				num_of_meals; // number of meals till the game ends

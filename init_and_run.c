@@ -98,14 +98,15 @@ int	var_init(t_info *data, char *argv[])
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argv[6] && data->num_of_meals == 0)
+	if (argv[5])
+		data->num_of_meals = ft_atoi(argv[5]);
+	//printf("args into struct\n"); //
+	if (argv[5] && data->num_of_meals == 0)
 	{
 		printf("num_of_meals = 0\n");
 		return (1);
 	}
-	if (argv[5])
-		data->num_of_meals = ft_atoi(argv[5]);
-	//printf("args into struct\n"); //
+	
 	return (0);
 }
 
