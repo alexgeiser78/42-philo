@@ -17,7 +17,9 @@ NO_COLOR = \033[0m
 
 NAME = philo
 
-CFLAGS =  -Wall -Wextra -Werror  #-fsanitize=address #-pthread 
+INCLUDE = philo.h
+
+CFLAGS =  -Wall -Wextra -Werror  -fsanitize=address
 
 RM = rm -rf
 
@@ -35,7 +37,7 @@ $(NAME) : $(OBJS)
 		gcc $(CFLAGS) $(OBJS) -o $(NAME)
 		@echo "$(GREEN)librairy compiled and executable generated$(NO_COLOR)" 
 
-%.o: %.c
+%.o: %.c $(INCLUDE)
 		gcc $(CFLAGS) -c $< -o $@
 		@echo "$(GREEN)Compiling$(NO_COLOR) $<"
 
