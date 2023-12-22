@@ -42,6 +42,7 @@ void	*check_death(void *phi_struct)
 
 	//printf("check_death mutexes meal_eat, meal stop locked during:\n"); //
 	//printf("ft_usleep = %d\n", philosofer->info->time_to_die ); // +1
+	
 	ft_usleep(philosofer->info->time_to_die + 1); //
 	pthread_mutex_lock(&philosofer->info->meal_eat);
 	pthread_mutex_lock(&philosofer->info->meal_stop);
@@ -97,7 +98,7 @@ void	philo_eat(t_philo *philo)
 void	*philo_life(void *phi_struct)
 {
 	t_philo		*philosofer;
-	pthread_t	thread;       
+	pthread_t	death_checker;       
 	
 	philosofer = (t_philo *)phi_struct;
 	//printf("philo %d\n", philosofer->id); //);  
@@ -110,15 +111,15 @@ void	*philo_life(void *phi_struct)
 	}
 	//else
 		//printf("philo id is impair\n"); //
-	
+	pthread_create(&death_checker, NULL, check_death, phi_struct);
 
 	while (!is_dead(philosofer, 0)) // 0 = alive, 1 = dead
 	{
 		//printf("new thread\n"); //
-		pthread_create(&thread, NULL, check_death, phi_struct);
+		//pthread_create(&thread, NULL, check_death, phi_struct);
 		take_fork(philosofer);
 		philo_eat(philosofer);
-		pthread_detach(thread); 
+		//pthread_detach(thread); 
 		if (philosofer->meal_count == philosofer->info->num_of_meals)
 		{
 			pthread_mutex_lock(&philosofer->info->meal_stop);
@@ -129,7 +130,7 @@ void	*philo_life(void *phi_struct)
 			}
 			pthread_mutex_unlock(&philosofer->info->meal_stop);
 			return (NULL);
-		}	
+		}
 	}
 	return (0);
 

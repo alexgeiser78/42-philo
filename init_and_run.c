@@ -48,7 +48,9 @@ int	philo_run(t_info *data)
 			data->philo[i].fork_r = &data->philo[0].fork_l;
 		else
 			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
-		philo_life(&data->philo[i]);
+		if (pthread_create(&data->philo[i].thread, NULL, \
+				&philo_life, &(data->philo[i])) != 0)
+			return (-1);
 	}
 	join_thread(data, i);
 	return (0);
