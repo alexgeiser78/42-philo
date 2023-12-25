@@ -76,11 +76,12 @@ int	main(int argc, char *argv[])
 	t_info	data;
 
 	//printf("argv[1] = %d\n", ft_atoi(argv[1]));
+	/*
 	if (ft_atoi(argv[1]) == 1 )
 	{
-		printf("only one fork\n");
+		printf("dies\n");
 		return (0);
-	}
+	}*/
 	
 	if (argc != 5 && argc != 6)
 	{

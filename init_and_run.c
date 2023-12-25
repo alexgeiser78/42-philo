@@ -15,7 +15,7 @@
 void	struct_init(t_info *data, int i)
 {
 	data->philo[i].id = i + 1;
-	data->philo[i].last_meal = 0;
+	data->philo[i].last_meal = timestamp();
 	data->philo[i].fork_r = NULL;
 	data->philo[i].info = data;
 	data->philo[i].meal_count = 0;
