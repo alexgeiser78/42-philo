@@ -66,15 +66,27 @@ void	*check_death(void *phi_struct)
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->fork_l));
-	print(philo, " has taken a fork\n");
-	if (philo->info->num_of_philo == 1)
+	if (philo->id % 2 == 0) 
+	{
+        pthread_mutex_lock(&(philo->fork_l));
+        pthread_mutex_lock((philo->fork_r));
+		print(philo, " has taken a fork\n");
+    } 
+	else 
+	{
+        pthread_mutex_lock((philo->fork_r));
+        pthread_mutex_lock(&(philo->fork_l));
+		print(philo, " has taken a fork\n");
+    }
+	//pthread_mutex_lock(&(philo->fork_l));
+	
+	/*if (philo->info->num_of_philo == 1)
 	{
 		ft_usleep(philo->info->time_to_die * 2);
 		return ;
-	}
-	pthread_mutex_lock((philo->fork_r));
-	print(philo, " has taken a fork\n");
+	}*/
+	//pthread_mutex_lock((philo->fork_r));
+	
 }
 
 //if there is only one philo, he has one fork, he dies
@@ -98,7 +110,7 @@ void	philo_eat(t_philo *philo)
 void	*philo_life(void *phi_struct)
 {
 	t_philo		*philosofer;
-	pthread_t	death_checker;       
+	//pthread_t	death_checker;       
 	
 	philosofer = (t_philo *)phi_struct;
 	//printf("philo %d\n", philosofer->id); //);  
@@ -111,8 +123,8 @@ void	*philo_life(void *phi_struct)
 	}
 	//else
 		//printf("philo id is impair\n"); //
-	pthread_create(&death_checker, NULL, check_death, phi_struct);
-
+	//pthread_create(&death_checker, NULL, check_death, phi_struct);
+	//pthread_detach(death_checker);
 	while (!is_dead(philosofer, 0)) // 0 = alive, 1 = dead
 	{
 		//printf("new thread\n"); //
@@ -125,13 +137,14 @@ void	*philo_life(void *phi_struct)
 			pthread_mutex_lock(&philosofer->info->meal_stop);
 			if (++philosofer->info->philo_eat == philosofer->info->num_of_philo)
 			{
-				pthread_mutex_unlock(&philosofer->info->meal_stop);
+				//pthread_mutex_unlock(&philosofer->info->meal_stop);
 				is_dead(philosofer, 1);
 			}
 			pthread_mutex_unlock(&philosofer->info->meal_stop);
 			return (NULL);
 		}
 	}
+	
 	return (0);
 
 }
