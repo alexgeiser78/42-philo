@@ -70,13 +70,13 @@ void	take_fork(t_philo *philo)
 	{
         pthread_mutex_lock(&(philo->fork_l));
         pthread_mutex_lock((philo->fork_r));
-		print(philo, " has taken a fork\n");
+		print(philo, " has taken forks\n");
     } 
 	else 
 	{
         pthread_mutex_lock((philo->fork_r));
         pthread_mutex_lock(&(philo->fork_l));
-		print(philo, " has taken a fork\n");
+		print(philo, " has taken forks\n");
     }
 	//pthread_mutex_lock(&(philo->fork_l));
 	
