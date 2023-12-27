@@ -74,6 +74,8 @@ void	take_fork(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
+	long long end_time;
+
 	print(philo, " is eating\n");
 	pthread_mutex_lock(&(philo->info->meal_eat));
 	philo->last_meal = timestamp();
@@ -83,14 +85,15 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock((philo->fork_r));
 	pthread_mutex_unlock(&(philo->fork_l));
 	print(philo, " is sleeping\n");
-	ft_usleep(philo->info->time_to_sleep);
+	end_time = timestamp() + philo->info->time_to_sleep;
+	while (timestamp() <= end_time)
+		ft_usleep(1);
 	print(philo, " is thinking\n");
 }
 
 void	*philo_life(void *phi_struct)
 {
 	t_philo		*philosofer;
-	pthread_t	thread;
 
 	philosofer = (t_philo *)phi_struct;
 	if (philosofer->id % 2 == 0)
@@ -99,8 +102,7 @@ void	*philo_life(void *phi_struct)
 	philosofer->meal_count != philosofer->info->num_of_meals)
 	{
 		take_fork(philosofer);
-		pthread_create(&thread, NULL, check_death, phi_struct);
-		pthread_join(thread, NULL);
+		check_death(phi_struct);
 		philo_eat(philosofer);
 	}
 	if (philosofer->meal_count == philosofer->info->num_of_meals)
