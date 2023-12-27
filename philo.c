@@ -53,7 +53,9 @@ void	take_fork(t_philo *philo)
 {
 	if (philo->info->num_of_philo == 1)
 	{
-		ft_usleep(philo->info->time_to_die * 2);
+		ft_usleep(philo->info->time_to_die + 1);
+		print(philo, "dies\n");
+		philo->info->stop = 1;
 		return ;
 	}
 	if (philo->id % 2 == 0)
@@ -72,9 +74,9 @@ void	take_fork(t_philo *philo)
 
 //if there is only one philo, he has one fork, he dies
 
-void	philo_eat(t_philo *philo)
+void	philo_eat(t_philo *philo, void *phi_struct)
 {
-	long long end_time;
+	long long	end_time;
 
 	print(philo, " is eating\n");
 	pthread_mutex_lock(&(philo->info->meal_eat));
@@ -87,7 +89,10 @@ void	philo_eat(t_philo *philo)
 	print(philo, " is sleeping\n");
 	end_time = timestamp() + philo->info->time_to_sleep;
 	while (timestamp() <= end_time)
+	{
+		check_death(phi_struct);
 		ft_usleep(1);
+	}
 	print(philo, " is thinking\n");
 }
 
@@ -103,7 +108,7 @@ void	*philo_life(void *phi_struct)
 	{
 		take_fork(philosofer);
 		check_death(phi_struct);
-		philo_eat(philosofer);
+		philo_eat(philosofer, phi_struct);
 	}
 	if (philosofer->meal_count == philosofer->info->num_of_meals)
 	{
