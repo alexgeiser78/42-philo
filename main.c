@@ -57,7 +57,6 @@ void	mutex_init(t_info *data)
 	pthread_mutex_init(&data->meal_stop, NULL);
 	pthread_mutex_init(&data->meal_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
-	//printf("4 mutex initialised\n"); //
 }
 
 //mutex (from mutual exclusion) is a synchronization 
@@ -75,20 +74,11 @@ int	main(int argc, char *argv[])
 {
 	t_info	data;
 
-	//printf("argv[1] = %d\n", ft_atoi(argv[1]));
-	/*
-	if (ft_atoi(argv[1]) == 1 )
-	{
-		printf("dies\n");
-		return (0);
-	}*/
-	
 	if (argc != 5 && argc != 6)
 	{
 		printf("./philo num_of_philo time_to_die time_to_eat time_to_sleep\n");
 		return (0);
 	}
-
 	mutex_init(&data);
 	if (var_init(&data, argv) == 1)
 	{
@@ -96,8 +86,8 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	if (philo_run(&data) != 0)
-	{	
-		printf("thread error\n"); //
+	{
+		printf("thread error\n");
 		freeall(&data);
 		return (0);
 	}

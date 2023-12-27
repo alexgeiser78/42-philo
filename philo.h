@@ -35,7 +35,7 @@ typedef struct l_info
 {
 	int				time_to_die; // time to die after last meal
 	int				num_of_philo;
-	int				time_to_eat; 
+	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_meals; // number of meals till the game ends
 	long int		start; // ms since epoch till the process started
@@ -47,7 +47,6 @@ typedef struct l_info
 	pthread_mutex_t	meal_eat; // pthread_mutex_lock(&philo->info->meal_eat);
 	pthread_mutex_t	dead; // pthread_mutex_lock(&philo->info->dead);
 }	t_info;
-
 
 int			check_num(char **str);
 int			var_init(t_info *data, char *argv[]);
@@ -62,6 +61,5 @@ void		print(t_philo *philo, char *str);
 void		struct_init(t_info *data, int i);
 int			join_thread(t_info *data, int i);
 void		*check_death(void *phi_struct);
-
 
 #endif

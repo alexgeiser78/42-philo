@@ -12,13 +12,11 @@
 
 #include "philo.h"
 
-
 long long	timestamp(void)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-    //printf("timestamp = %ld\n", tv.tv_sec * 1000 + tv.tv_usec / 1000); //
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
@@ -37,10 +35,9 @@ void	ft_usleep(int ms)
 
 	time = timestamp();
 	while (timestamp() - time < ms)
-        {
+	{
 		usleep(ms);
-        }
-    //printf("sleep %dms\n", ms); //
+	}
 }
 //usleep() function suspends execution of the calling thread
 
@@ -52,7 +49,7 @@ void	print(t_philo *philo, char *str)
 	time = timestamp() - philo->info->start;
 	if (!philo->info->stop && time >= 0 \
 			&& time <= INT_MAX && !is_dead(philo, 0))
-		printf("%lldms id %d %s", timestamp() - philo->info->start, philo->id, str); // wow
+		printf("%lldms id %d %s", timestamp() - \
+		philo->info->start, philo->id, str);
 	pthread_mutex_unlock(&(philo->info->print));
 }
-
