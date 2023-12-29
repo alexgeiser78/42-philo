@@ -76,19 +76,22 @@ void	take_fork(t_philo *philo)
 
 void	philo_eat(t_philo *philo, void *phi_struct)
 {
-	long long	end_time;
+	long long	tte;
+	long long	tts;
 
 	print(philo, " is eating\n");
 	pthread_mutex_lock(&(philo->info->meal_eat));
 	philo->last_meal = timestamp();
-	philo->meal_count++;
+	philo->meal_count++; 
 	pthread_mutex_unlock(&(philo->info->meal_eat));
-	ft_usleep(philo->info->time_to_eat);
+	tte = timestamp() + philo->info->time_to_eat;
+	while(timestamp() <= tte)
+		ft_usleep(1);
 	pthread_mutex_unlock((philo->fork_r));
 	pthread_mutex_unlock(&(philo->fork_l));
 	print(philo, " is sleeping\n");
-	end_time = timestamp() + philo->info->time_to_sleep;
-	while (timestamp() <= end_time)
+	tts = timestamp() + philo->info->time_to_sleep;
+	while (timestamp() <= tts)
 	{
 		check_death(phi_struct);
 		ft_usleep(1);
