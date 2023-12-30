@@ -126,7 +126,7 @@ void	philo_eat(t_philo *philo, void *phi_struct)
 			ft_usleep(1);
 		else
 		{
-			printf("break\n");
+			//printf("break\n");
 			break;
 		}
 	}
@@ -147,7 +147,7 @@ void	*philo_life(void *phi_struct)
 		//pthread_mutex_lock(&philosofer->info->essai);
 		if (take_fork(philosofer) == 0)
 		{
-			printf("check %d\n", check_death(phi_struct));
+			//printf("check %d\n", check_death(phi_struct));
 			if(is_dead(philosofer, check_death(phi_struct)) == 0)
 			{
 				philo_eat(philosofer, phi_struct);
@@ -156,22 +156,22 @@ void	*philo_life(void *phi_struct)
 			//printf("hola2\n");
 			
 			}
-			printf("check2 %d\n", philosofer->info->stop);
+			//printf("check2 %d\n", philosofer->info->stop);
 			
 			if(is_dead(philosofer, 0) == 1)
 			{	
 				//pthread_detach(philosofer->thread);
 				pthread_mutex_unlock(&philosofer->info->essai);
-				printf("hola3\n");
+				//printf("hola3\n");
 				break;
 			}
 			//printf("hola4\n");
 		}
 
 		
-		printf("hola5\n");
+		//printf("hola5\n");
 	}
-printf("hola6\n");
+//printf("hola6\n");
 
 
 	if (philosofer->meal_count == philosofer->info->num_of_meals)
@@ -185,7 +185,7 @@ printf("hola6\n");
 		return (NULL);
 	}
 
-	printf("hola7\n");
+	//printf("hola7\n");
 	return (0);
 }
 
