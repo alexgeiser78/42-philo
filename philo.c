@@ -169,6 +169,8 @@ void	*philo_life(void *phi_struct)
 		//printf("hola5\n");
 	}
 //printf("hola6\n");
+
+
 	if (philosofer->meal_count == philosofer->info->num_of_meals)
 	{
 		pthread_mutex_lock(&philosofer->info->meal_stop);
@@ -179,6 +181,7 @@ void	*philo_life(void *phi_struct)
 		pthread_mutex_unlock(&philosofer->info->meal_stop);
 		return (NULL);
 	}
+
 	//printf("hola7\n");
 	return (0);
 }
