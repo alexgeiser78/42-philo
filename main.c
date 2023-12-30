@@ -48,7 +48,7 @@ void	freeall(t_info *data)
 	pthread_mutex_destroy(&data->meal_eat);
 	pthread_mutex_destroy(&data->dead);
 	pthread_mutex_destroy(&data->essai);
-	printf("end");
+	//printf("end");
 }
 //pthread_mutex_destroy() destroys the mutex object
 //If successful, pthread_mutex_init() and pthread_mutex_destroy return zero.
