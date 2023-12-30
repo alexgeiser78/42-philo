@@ -47,6 +47,8 @@ void	freeall(t_info *data)
 	pthread_mutex_destroy(&data->meal_stop);
 	pthread_mutex_destroy(&data->meal_eat);
 	pthread_mutex_destroy(&data->dead);
+	pthread_mutex_destroy(&data->essai);
+	printf("end");
 }
 //pthread_mutex_destroy() destroys the mutex object
 //If successful, pthread_mutex_init() and pthread_mutex_destroy return zero.
@@ -57,6 +59,7 @@ void	mutex_init(t_info *data)
 	pthread_mutex_init(&data->meal_stop, NULL);
 	pthread_mutex_init(&data->meal_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
+	pthread_mutex_init(&data->essai, NULL);
 }
 
 //mutex (from mutual exclusion) is a synchronization 

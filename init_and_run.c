@@ -26,9 +26,18 @@ int	join_thread(t_info *data, int i)
 	i = -1;
 	while (++i < data->num_of_philo)
 	{
+	//pthread_detach(data->philo[i].thread);	
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
+		{
+			printf("join threadin\n");
+		
 			return (-1);
+		}
+		pthread_detach(data->philo[i].thread);	
+	printf("join thread\n");
+	//break;
 	}
+	//printf("join thread\n");
 	return (0);
 }
 
@@ -79,6 +88,8 @@ int	var_init(t_info *data, char *argv[])
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->num_of_meals = ft_atoi(argv[5]);
+	else
+		data->num_of_meals = -1;
 	if (argv[5] && data->num_of_meals == 0)
 	{
 		printf("num_of_meals = 0\n");
