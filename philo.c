@@ -118,7 +118,7 @@ void	philo_eat(t_philo *philo, void *phi_struct)
 	//pthread_mutex_lock(&philo->info->essai);
 	if(philo->info->time_to_die <= philo->info->time_to_eat * 2)
 	{
-	
+	pthread_mutex_lock(&philo->info->essai);
 	ttl = philo->last_meal + philo->info->time_to_die;
 	while (timestamp() <= ttl)
 	{
@@ -157,13 +157,14 @@ void	*philo_life(void *phi_struct)
 			
 			}
 			printf("check2 %d\n", philosofer->info->stop);
-			/*
-			if(philosofer->info->stop == 1)
+			
+			if(is_dead(philosofer, 0) == 1)
 			{	
 				//pthread_detach(philosofer->thread);
+				pthread_mutex_unlock(&philosofer->info->essai);
 				printf("hola3\n");
 				break;
-			}*/
+			}
 			//printf("hola4\n");
 		}
 
