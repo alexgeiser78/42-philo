@@ -106,7 +106,7 @@ void	philo_eat(t_philo *philo, void *phi_struct)
 	}
 	pthread_mutex_unlock((philo->fork_r));
 	pthread_mutex_unlock(&(philo->fork_l));
-	pthread_mutex_lock(&philo->info->essai);
+	//pthread_mutex_lock(&philo->info->essai);
 	print(philo, " is sleeping\n");
 	tts = timestamp() + philo->info->time_to_sleep;
 	while (timestamp() <= tts)
@@ -126,7 +126,7 @@ void	philo_eat(t_philo *philo, void *phi_struct)
 			ft_usleep(1);
 		else
 		{
-			//printf("break\n");
+			printf("break\n");
 			break;
 		}
 	}
@@ -147,16 +147,17 @@ void	*philo_life(void *phi_struct)
 		//pthread_mutex_lock(&philosofer->info->essai);
 		if (take_fork(philosofer) == 0)
 		{
-			//printf("check %d\n", check_death(phi_struct));
+			printf("check %d\n", check_death(phi_struct));
 			if(is_dead(philosofer, check_death(phi_struct)) == 0)
 			{
 				philo_eat(philosofer, phi_struct);
 				//printf("hola1\n");
-			pthread_mutex_unlock(&philosofer->info->essai);
+			//pthread_mutex_unlock(&philosofer->info->essai);
 			//printf("hola2\n");
 			
 			}
-			/*printf("check2 %d\n", philosofer->info->stop);
+			printf("check2 %d\n", philosofer->info->stop);
+			/*
 			if(philosofer->info->stop == 1)
 			{	
 				//pthread_detach(philosofer->thread);
@@ -167,9 +168,9 @@ void	*philo_life(void *phi_struct)
 		}
 
 		
-		//printf("hola5\n");
+		printf("hola5\n");
 	}
-//printf("hola6\n");
+printf("hola6\n");
 
 
 	if (philosofer->meal_count == philosofer->info->num_of_meals)
@@ -183,7 +184,7 @@ void	*philo_life(void *phi_struct)
 		return (NULL);
 	}
 
-	//printf("hola7\n");
+	printf("hola7\n");
 	return (0);
 }
 
