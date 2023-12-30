@@ -106,6 +106,7 @@ void	philo_eat(t_philo *philo, void *phi_struct)
 	}
 	pthread_mutex_unlock((philo->fork_r));
 	pthread_mutex_unlock(&(philo->fork_l));
+	pthread_mutex_lock(&philo->info->essai);
 	print(philo, " is sleeping\n");
 	tts = timestamp() + philo->info->time_to_sleep;
 	while (timestamp() <= tts)
@@ -114,7 +115,7 @@ void	philo_eat(t_philo *philo, void *phi_struct)
 		ft_usleep(1);
 	}
 	print(philo, " is thinking\n");
-	pthread_mutex_lock(&philo->info->essai);
+	//pthread_mutex_lock(&philo->info->essai);
 	if(philo->info->time_to_die <= philo->info->time_to_eat * 2)
 	{
 	
@@ -174,7 +175,7 @@ void	*philo_life(void *phi_struct)
 	if (philosofer->meal_count == philosofer->info->num_of_meals)
 	{
 		pthread_mutex_lock(&philosofer->info->meal_stop);
-		if (++philosofer->info->philo_eat == philosofer->info->num_of_philo)
+		if (philosofer->info->philo_eat == philosofer->info->num_of_philo)
 		{
 			is_dead(philosofer, 1);
 		}
