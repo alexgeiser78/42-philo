@@ -66,7 +66,7 @@ int	take_fork(t_philo *philosofer)
 		pthread_mutex_unlock(&(philosofer->fork_l));
 		return (1);
 	}
-	pthread_mutex_lock((philosofer->fork_r));
+	pthread_mutex_lock(philosofer->fork_r);
 	print(philosofer, " has taken a fork\n");
 	return (0);
 }
@@ -114,11 +114,11 @@ void	*philo_life(void *phi_struct)
 	{
 		if (take_fork(philosofer) == 0)
 		{
-			if (is_dead(philosofer, check_death(phi_struct)) == 0)
+			if (is_dead(philosofer, 0) == 0)
 				philo_eat(philosofer, phi_struct);
 			if (is_dead(philosofer, 0) == 1)
 			{
-				pthread_mutex_unlock(&philosofer->info->essai);
+				//pthread_mutex_unlock(&philosofer->info->essai);
 				break ;
 			}
 		}

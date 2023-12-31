@@ -60,7 +60,7 @@ int			is_dead(t_philo *philo, int nb);
 void		ft_usleep(int ms);
 void		print(t_philo *philo, char *str);
 void		struct_init(t_info *data, int i);
-int			join_thread(t_info *data, int i);
+int			join_thread(t_info *data);
 void		nb_meal(t_philo *philosofer);
 void		time_to_think(t_philo *philo, void *phi_struct);
 int			check_death(void *phi_struct);

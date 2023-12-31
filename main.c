@@ -12,10 +12,11 @@
 
 #include "philo.h"
 
-int	join_thread(t_info *data, int i)
+int	join_thread(t_info *data)
 {
-	i = -1;
-	while (++i < data->num_of_philo)
+	int i;
+	i = 0;
+	while (i < data->num_of_philo)
 	{
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 			return (-1);
