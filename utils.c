@@ -47,8 +47,8 @@ void	print(t_philo *philo, char *str)
 
 	pthread_mutex_lock(&(philo->info->print));
 	time = timestamp() - philo->info->start;
-	if (!philo->info->stop && time >= 0 \
-			&& time <= INT_MAX && !is_dead(philo, 0))
+	if (/*!philo->info->stop && */ time >= 0 \
+			&& time <= INT_MAX && is_dead(philo, 0) == 0)
 		printf("%lld %d %s", timestamp() - \
 		philo->info->start, philo->id, str);
 	pthread_mutex_unlock(&(philo->info->print));
