@@ -116,7 +116,8 @@ void	philo_eat(t_philo *philo, void *phi_struct)
 	}
 	print(philo, " is thinking\n");
 	//pthread_mutex_lock(&philo->info->essai);
-	if(philo->info->time_to_die <= philo->info->time_to_eat * 2)
+	if(philo->info->time_to_die <= philo->info->time_to_eat * 2 \
+	 || philo->info->time_to_die <= philo->info->time_to_sleep * 2)
 	{
 	pthread_mutex_lock(&philo->info->essai);
 	ttl = philo->last_meal + philo->info->time_to_die;
