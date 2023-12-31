@@ -118,7 +118,6 @@ void	*philo_life(void *phi_struct)
 				philo_eat(philosofer, phi_struct);
 			if (is_dead(philosofer, 0) == 1)
 			{
-				//pthread_mutex_unlock(&philosofer->info->essai);
 				break ;
 			}
 		}
