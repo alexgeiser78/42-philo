@@ -45,9 +45,9 @@ int	check_death(void *phi_struct)
 			philosofer->last_meal >= (long)(philosofer->info->time_to_die))
 	{
 		print(philosofer, " died\n");
-		is_dead(philosofer, 1);
-		//pthread_mutex_unlock(&philosofer->info->meal_eat);
-		//pthread_mutex_unlock(&philosofer->info->meal_stop);		
+		pthread_mutex_unlock(&philosofer->info->meal_eat);
+		pthread_mutex_unlock(&philosofer->info->meal_stop);
+		is_dead(philosofer, 1);		
 		return(1);
 	}
 	pthread_mutex_unlock(&philosofer->info->meal_eat);

@@ -27,18 +27,18 @@ int	join_thread(t_info *data, int i)
 	while (++i < data->num_of_philo)
 	{
 	//pthread_detach(data->philo[i].thread);
-		if(is_dead(&data->philo[i], 0) == 1)
+	/*	if(is_dead(&data->philo[i], 0) == 1)
 		{
 			//printf("join thread\n");
 			return (0);
-		}
+		}*/
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 		{
 			//printf("join threadin\n");
 		
 			return (-1);
 		}
-		pthread_detach(data->philo[i].thread);	
+		//pthread_detach(data->philo[i].thread);	
 	//printf("join thread\n");
 	//break;
 	}
