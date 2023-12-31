@@ -77,7 +77,13 @@ int	main(int argc, char *argv[])
 {
 	t_info	data;
 
-	if (argc != 5 && argc != 6)
+	if(check_num(argv) == 1)
+	{
+		printf("!is_digit\n");
+return (0);
+	}
+
+	if (argc != 5 && argc != 6 )
 	{
 		printf("./philo num_of_philo time_to_die time_to_eat time_to_sleep\n");
 		return (0);
