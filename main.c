@@ -12,6 +12,17 @@
 
 #include "philo.h"
 
+int	join_thread(t_info *data, int i)
+{
+	i = -1;
+	while (++i < data->num_of_philo)
+	{
+		if (pthread_join(data->philo[i].thread, NULL) != 0)
+			return (-1);
+	}
+	return (0);
+}
+
 int	check_num(char **str)
 {
 	int	i;
@@ -48,7 +59,6 @@ void	freeall(t_info *data)
 	pthread_mutex_destroy(&data->meal_eat);
 	pthread_mutex_destroy(&data->dead);
 	pthread_mutex_destroy(&data->essai);
-	//printf("end");
 }
 //pthread_mutex_destroy() destroys the mutex object
 //If successful, pthread_mutex_init() and pthread_mutex_destroy return zero.
@@ -77,15 +87,9 @@ int	main(int argc, char *argv[])
 {
 	t_info	data;
 
-	if(check_num(argv) == 1)
+	if ((argc != 5 && argc != 6) || check_num(argv) == 1)
 	{
-		printf("!is_digit\n");
-return (0);
-	}
-
-	if (argc != 5 && argc != 6 )
-	{
-		printf("./philo num_of_philo time_to_die time_to_eat time_to_sleep\n");
+		printf("wrong arg: ./philo n_phil t_die t_eat t_sleep (n_meal)\n");
 		return (0);
 	}
 	mutex_init(&data);

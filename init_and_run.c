@@ -12,6 +12,36 @@
 
 #include "philo.h"
 
+void	time_to_think(t_philo *philo, void *phi_struct)
+{
+	long long	ttl;
+
+	if (philo->info->time_to_die <= philo->info->time_to_eat * 2 \
+	|| philo->info->time_to_die <= philo->info->time_to_sleep * 2)
+	{
+		pthread_mutex_lock(&philo->info->essai);
+		ttl = philo->last_meal + philo->info->time_to_die;
+		while (timestamp() <= ttl)
+		{
+			if (check_death(phi_struct) == 0)
+				ft_usleep(1);
+			else
+				break ;
+		}
+	}
+}
+
+void	nb_meal(t_philo *philosofer)
+{
+	if (philosofer->meal_count == philosofer->info->num_of_meals)
+	{
+		pthread_mutex_lock(&philosofer->info->meal_stop);
+		if (philosofer->info->philo_eat == philosofer->info->num_of_philo)
+			is_dead(philosofer, 1);
+		pthread_mutex_unlock(&philosofer->info->meal_stop);
+	}
+}
+
 void	struct_init(t_info *data, int i)
 {
 	data->philo[i].id = i + 1;
@@ -19,31 +49,6 @@ void	struct_init(t_info *data, int i)
 	data->philo[i].fork_r = NULL;
 	data->philo[i].info = data;
 	data->philo[i].meal_count = 0;
-}
-
-int	join_thread(t_info *data, int i)
-{
-	i = -1;
-	while (++i < data->num_of_philo)
-	{
-	//pthread_detach(data->philo[i].thread);
-	/*	if(is_dead(&data->philo[i], 0) == 1)
-		{
-			//printf("join thread\n");
-			return (0);
-		}*/
-		if (pthread_join(data->philo[i].thread, NULL) != 0)
-		{
-			//printf("join threadin\n");
-		
-			return (-1);
-		}
-		//pthread_detach(data->philo[i].thread);	
-	//printf("join thread\n");
-	//break;
-	}
-	//printf("join thread\n");
-	return (0);
 }
 
 //pthread_join() waits for the thread specified by thread to terminate.

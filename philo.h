@@ -46,7 +46,7 @@ typedef struct l_info
 	pthread_mutex_t	meal_stop; // pthread_mutex_lock(&philo->info->meal_stop);
 	pthread_mutex_t	meal_eat; // pthread_mutex_lock(&philo->info->meal_eat);
 	pthread_mutex_t	dead; // pthread_mutex_lock(&philo->info->dead);
-	pthread_mutex_t essai;
+	pthread_mutex_t	essai;
 }	t_info;
 
 int			check_num(char **str);
@@ -61,6 +61,8 @@ void		ft_usleep(int ms);
 void		print(t_philo *philo, char *str);
 void		struct_init(t_info *data, int i);
 int			join_thread(t_info *data, int i);
-
+void		nb_meal(t_philo *philosofer);
+void		time_to_think(t_philo *philo, void *phi_struct);
+int			check_death(void *phi_struct);
 
 #endif
